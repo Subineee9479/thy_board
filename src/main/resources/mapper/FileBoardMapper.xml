@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="com.example.board.mapper.FileBoardMapper">
+	<select id="getFileBoardList" resultType="com.example.board.bean.FileBoardVO">
+		select * from file_board
+		order by b_no
+	</select>
+	
+	<select id="fileBoardDetail" parameterType="int" resultType="com.example.board.bean.FileBoardVO">
+		select * from file_board
+		where b_no=#{b_no}
+	</select>
+	
+	<insert id="fileBoardInsert" parameterType="com.example.board.bean.FileBoardVO" keyProperty="b_no">
+		insert into file_board(title, content, writer)
+		values(#{title}, #{content}, #{writer})
+	</insert>
+	
+	<update id="fileBoardUpdate" parameterType="com.example.board.bean.FileBoardVO">
+		update file_board set
+		<if test="title !=null">title=#{title}</if>
+		<if test="title !=null and content != null">,</if>
+		<if test="content !=null">content=#{content}</if>
+		where b_no=#{b_no}
+	</update>
+	
+	<delete id="fileBoardDelete" parameterType="int">
+		delete from file_board where b_no=#{b_no}
+	</delete>
+</mapper>
